@@ -3,6 +3,7 @@ package com.gdmap;
 
 import android.content.Context;
 
+import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 
 /**
@@ -10,8 +11,10 @@ import com.amap.api.maps.MapView;
  */
 
 public class AMapView extends MapView {
+    public AMap map;
     public AMapView(Context context) {
         super(context);
         super.onCreate(null);
+        map = getMap();
     }
 }

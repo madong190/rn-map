@@ -5,13 +5,14 @@
  */
 
 import React, { Component } from 'react';
-import MapViewe from './AMapView'
+import ControlsExample from './example/controls';
+import AMapView from './api/AMapView'
 
-type Props = {};
-export default class App extends Component<Props> {
+
+export default class App extends Component {
     render() {
         return (
-            <MapViewe style={{flex: 1}}/>
+            <ControlsExample style={{flex: 1}}/>
         );
     }
 }
