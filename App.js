@@ -5,15 +5,13 @@
  */
 
 import React, { Component } from 'react';
-import ControlsExample from './example/controls';
-import EventExample from './example/events';
-import AMapView from './api/AMapView'
+import PolylineExample from './example/polyline';
 
 
 export default class App extends Component {
     render() {
         return (
-            <EventExample style={{flex: 1}}/>
+            <PolylineExample style={{flex: 1}}/>
         );
     }
 }

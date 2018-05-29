@@ -4,6 +4,7 @@ package com.gdmap;
 import android.content.Context;
 import android.location.Location;
 import android.util.Log;
+import android.view.View;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
@@ -26,13 +27,11 @@ import java.util.Map;
 
 public class AMapView extends MapView {
     public AMap map;
-    public ReactContext context;
-    private MapViewManager mvm;
-    public AMapView(ReactContext context,MapViewManager mvm) {
+    private Map<String, AMapPolyline> polylines = new HashMap<>();
+    public AMapView(ReactContext context) {
         super(context);
         super.onCreate(null);
         map = getMap();
-        this.mvm  = mvm;
         this.init();
     }
 
@@ -89,8 +88,11 @@ public class AMapView extends MapView {
                 getId(),
                 eventName,
                 event);
-
-
     }
 
+
+    public void addPolyline(AMapPolyline polyline) {
+        polyline.addToMap(map);
+        polylines.put(polyline.getPolylineId(), polyline);
+    }
 }

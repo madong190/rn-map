@@ -3,6 +3,7 @@ package com.gdmap;
 /**
  * Created by madon on 2018/5/28.
  */
+import android.util.Log;
 import android.view.View;
 
 import com.facebook.react.bridge.ReactContext;
@@ -12,6 +13,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.UIManagerModule;
+import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.events.Event;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
@@ -20,7 +22,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-public class MapViewManager extends SimpleViewManager {
+public class MapViewManager extends ViewGroupManager<AMapView> {
     public ReactContext context;
     RCTEventEmitter eventEmitter ;
     @Override
@@ -29,10 +31,10 @@ public class MapViewManager extends SimpleViewManager {
     }
 
     @Override
-    protected View createViewInstance(ThemedReactContext reactContext) {
+    protected AMapView createViewInstance(ThemedReactContext reactContext) {
         context = reactContext;
         eventEmitter = reactContext.getJSModule(RCTEventEmitter.class);
-        return new AMapView(reactContext,this);
+        return new AMapView(reactContext);
     }
     @ReactProp(name = "showsCompass")
     public void setCompassEnabled(AMapView view, Boolean show ) {
@@ -64,5 +66,11 @@ public class MapViewManager extends SimpleViewManager {
                 "onCameraChange", MapBuilder.of("registrationName", "onCameraChange"),
                 "onCameraChangeFinish", MapBuilder.of("registrationName", "onCameraChangeFinish")
         );
+    }
+    @Override
+    public void addView(AMapView mapView, View child, int index) {
+        if(child instanceof AMapPolyline){
+            mapView.addPolyline((AMapPolyline) child);
+        }
     }
 }

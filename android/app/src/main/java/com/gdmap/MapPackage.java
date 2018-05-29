@@ -23,6 +23,7 @@ public class MapPackage implements ReactPackage {
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         List<ViewManager> list = new ArrayList<ViewManager>();
         list.add(new MapViewManager());
+        list.add(new AMapPolylineManager());
         return list;
     }
 }
