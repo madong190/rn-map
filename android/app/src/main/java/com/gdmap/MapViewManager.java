@@ -5,11 +5,24 @@ package com.gdmap;
  */
 import android.view.View;
 
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.common.MapBuilder;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.facebook.react.uimanager.events.Event;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
+
+import java.util.Map;
+
+import javax.annotation.Nullable;
 
 public class MapViewManager extends SimpleViewManager {
+    public ReactContext context;
+    RCTEventEmitter eventEmitter ;
     @Override
     public String getName() {
         return "AMapView";
@@ -17,7 +30,9 @@ public class MapViewManager extends SimpleViewManager {
 
     @Override
     protected View createViewInstance(ThemedReactContext reactContext) {
-        return new AMapView(reactContext);
+        context = reactContext;
+        eventEmitter = reactContext.getJSModule(RCTEventEmitter.class);
+        return new AMapView(reactContext,this);
     }
     @ReactProp(name = "showsCompass")
     public void setCompassEnabled(AMapView view, Boolean show ) {
@@ -40,5 +55,14 @@ public class MapViewManager extends SimpleViewManager {
     @ReactProp(name = "locationEnabled")
     public void  setMyLocationEnabled(AMapView view, Boolean enabled) {
         view.map.setMyLocationEnabled(enabled);
+    }
+    @Override
+    public Map getExportedCustomDirectEventTypeConstants() {
+        return MapBuilder.of(
+                "onPress", MapBuilder.of("registrationName", "onPress"),
+                "onLocaltionChange", MapBuilder.of("registrationName", "onLocaltionChange"),
+                "onCameraChange", MapBuilder.of("registrationName", "onCameraChange"),
+                "onCameraChangeFinish", MapBuilder.of("registrationName", "onCameraChangeFinish")
+        );
     }
 }

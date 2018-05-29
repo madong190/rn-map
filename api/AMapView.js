@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {requireNativeComponent,View} from 'react-native'
-export default requireNativeComponent('AMapView', {
-    name: 'AMapView',
-    propTypes: {
+export default class MapView extends React. Component {
+    static propTypes = {
         /**
          * 是否显示指南针
          */
@@ -24,6 +23,55 @@ export default requireNativeComponent('AMapView', {
          * 是否启用定位
          */
         locationEnabled: PropTypes.bool,
+        /**
+         * 点击事件
+         *
+         * @param {{ nativeEvent: LatLng }}
+         */
+        onPress: PropTypes.func,
+
+
+        /**
+         * 定位事件
+         *
+         * @param {{
+         *   nativeEvent: {
+         *     longitude: number,
+         *     latitude: number,
+         *   }
+         * }}
+         */
+        onLocaltionChange: PropTypes.func,
+        /**
+         * 可视区域变化
+         *
+         * @param {{
+         *   nativeEvent: {
+         *     zoom: number
+         *   }
+         * }}
+         */
+        onCameraChange: PropTypes.func,
+        /**
+         * 可视区域变化
+         *
+         * @param {{
+         *   nativeEvent: {
+         *     zoom: number,
+         *     southwest: string,
+         *     longitude: number,
+         *     latitude: number,
+         *   }
+         * }}
+         */
+        onCameraChangeFinish: PropTypes.func,
         ...View.propTypes,
-    },
-})
+    }
+
+    name = 'AMapView'
+
+    render() {
+        return <AMapView {...this.props}/>
+    }
+}
+const AMapView = requireNativeComponent('AMapView', MapView);

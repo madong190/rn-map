@@ -6,13 +6,14 @@
 
 import React, { Component } from 'react';
 import ControlsExample from './example/controls';
+import EventExample from './example/events';
 import AMapView from './api/AMapView'
 
 
 export default class App extends Component {
     render() {
         return (
-            <ControlsExample style={{flex: 1}}/>
+            <EventExample style={{flex: 1}}/>
         );
     }
 }
