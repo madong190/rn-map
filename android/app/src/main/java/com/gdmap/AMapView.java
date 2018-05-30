@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.TextureMapView;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.facebook.react.bridge.Arguments;
@@ -21,11 +22,13 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.amap.api.mapcore.util.dq.v;
+
 /**
  * Created by madon on 2018/5/28.
  */
 
-public class AMapView extends MapView {
+public class AMapView extends TextureMapView {
     public AMap map;
     private Map<String, AMapPolyline> polylines = new HashMap<>();
     public AMapView(ReactContext context) {
@@ -91,8 +94,15 @@ public class AMapView extends MapView {
     }
 
 
-    public void addPolyline(AMapPolyline polyline) {
+    public void addPolyline(AMapPolyline polyline,int index) {
         polyline.addToMap(map);
         polylines.put(polyline.getPolylineId(), polyline);
+    }
+    public void remove(View v){
+        if(v instanceof  AMapPolyline){
+            AMapPolyline poil = (AMapPolyline) v;
+            polylines.remove(poil.getPolylineId());
+            poil.removeFromMap();
+        }
     }
 }

@@ -42,9 +42,11 @@ public class AMapPolyline extends ReactViewGroup {
     }
 
     public void setCoordinates(ReadableArray coordinates) {
+        Log.i("amap","setCoordinates:"+coordinates.size());
         this.coordinates = new ArrayList(coordinates.size());
         for(int i = 0;i<coordinates.size();i++){
             ReadableMap map =  coordinates.getMap(i);
+            Log.i("amap","setCoordinates:"+map.getDouble("latitude")+","+map.getDouble("longitude"));
             this.coordinates.add(new LatLng(map.getDouble("latitude"),map.getDouble("longitude")));
         }
         if (polyline != null) {
@@ -82,6 +84,7 @@ public class AMapPolyline extends ReactViewGroup {
         }
     }
 
+
     public void addToMap(AMap map) {
         polyline = map.addPolyline(new PolylineOptions()
                 .addAll(coordinates)
@@ -91,7 +94,12 @@ public class AMapPolyline extends ReactViewGroup {
                 .setDottedLine(dashed)
                 .zIndex(zIndex));
     }
-
+    public void removeFromMap() {
+        if(polyline!=null){
+            polyline.remove();
+            polyline=null;
+        }
+    }
     public String getPolylineId() {
          return polyline.getId();
     }

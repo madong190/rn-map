@@ -69,8 +69,16 @@ public class MapViewManager extends ViewGroupManager<AMapView> {
     }
     @Override
     public void addView(AMapView mapView, View child, int index) {
+        super.addView(mapView,child,index);
         if(child instanceof AMapPolyline){
-            mapView.addPolyline((AMapPolyline) child);
+            mapView.addPolyline((AMapPolyline) child,index);
         }
     }
+
+    @Override
+    public void removeViewAt(AMapView mapView, int index) {
+        mapView.remove(mapView.getChildAt(index));
+        super.removeViewAt(mapView,index);
+    }
+
 }
