@@ -69,9 +69,8 @@ export default class MapView extends React. Component {
     }
 
     name = 'AMapView'
-
     render() {
-        return <AMapView {...this.props}/>
+        return <AMapView {...this.props} />
     }
 }
 const AMapView = requireNativeComponent('AMapView', MapView);

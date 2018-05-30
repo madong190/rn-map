@@ -5,13 +5,13 @@
  */
 
 import React, { Component } from 'react';
-import PolylineExample from './example/polyline';
+import ScreenShot from './example/ScreenShot';
 
 
 export default class App extends Component {
     render() {
         return (
-            <PolylineExample style={{flex: 1}}/>
+            <ScreenShot style={{flex: 1}}/>
         );
     }
 }

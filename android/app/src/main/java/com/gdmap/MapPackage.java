@@ -14,15 +14,18 @@ import java.util.List;
  */
 
 public class MapPackage implements ReactPackage {
+    private MapViewManager mapViewManager = new MapViewManager();
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        return new ArrayList<>(0);
+        List<NativeModule> list = new ArrayList<NativeModule>();
+        list.add(new ScreenShotMoudle(reactContext,mapViewManager));
+        return list;
     }
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         List<ViewManager> list = new ArrayList<ViewManager>();
-        list.add(new MapViewManager());
+        list.add(mapViewManager);
         list.add(new AMapPolylineManager());
         return list;
     }

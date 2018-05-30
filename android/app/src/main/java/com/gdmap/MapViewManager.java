@@ -6,7 +6,9 @@ package com.gdmap;
 import android.util.Log;
 import android.view.View;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
@@ -25,6 +27,10 @@ import javax.annotation.Nullable;
 public class MapViewManager extends ViewGroupManager<AMapView> {
     public ReactContext context;
     RCTEventEmitter eventEmitter ;
+    AMapView aMapView;
+    public AMapView getAMapView(){
+        return aMapView;
+    }
     @Override
     public String getName() {
         return "AMapView";
@@ -34,7 +40,8 @@ public class MapViewManager extends ViewGroupManager<AMapView> {
     protected AMapView createViewInstance(ThemedReactContext reactContext) {
         context = reactContext;
         eventEmitter = reactContext.getJSModule(RCTEventEmitter.class);
-        return new AMapView(reactContext);
+        aMapView = new AMapView(reactContext);
+        return aMapView;
     }
     @ReactProp(name = "showsCompass")
     public void setCompassEnabled(AMapView view, Boolean show ) {
