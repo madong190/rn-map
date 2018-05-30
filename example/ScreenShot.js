@@ -3,8 +3,8 @@ import { StyleSheet, Switch, Text, View,TouchableOpacity,NativeModules} from 're
 import MapView from '../api/AMapView'
 import styles from './styles'
 
-const AMapScreenShot = NativeModules.AMapScreenShot;//获取对应模块
-export default class ControlsExample extends Component {
+const AMapScreenShot = NativeModules.AMapScreenShot;//获取截屏模块
+export default class ScreenShotExample extends Component {
     state={
         tips:''
     }
